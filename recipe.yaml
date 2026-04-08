@@ -1,0 +1,21 @@
+package:
+  name: tempo
+  version: "0.1.0"
+
+source:
+  path: .
+
+build:
+  script:
+    - mkdir -p $PREFIX/lib/mojo
+    - cp -r tempo $PREFIX/lib/mojo/
+
+requirements:
+  host:
+    - mojo <1.0
+  run:
+    - mojo <1.0
+
+about:
+  summary: Minimal Timestamp and Duration types for Mojo
+  license: MIT

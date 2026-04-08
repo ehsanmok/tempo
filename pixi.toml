@@ -1,0 +1,46 @@
+[workspace]
+authors = ["ehsanmok <ehsanmok@users.noreply.github.com>"]
+channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
+name = "tempo"
+platforms = ["linux-64", "osx-arm64"]
+version = "0.1.0"
+preview = ["pixi-build"]
+
+[package]
+name = "tempo"
+version = "0.1.0"
+
+[package.build]
+backend = { name = "pixi-build-rattler-build", version = "*" }
+
+[dependencies]
+tempo = { path = "." }
+mojo = "<1.0"
+
+[feature.dev.dependencies]
+pre-commit = ">=4.2.0,<5"
+mojodoc = { git = "https://github.com/ehsanmok/mojodoc.git", branch = "main" }
+
+[environments]
+default = { features = ["dev"], solve-group = "default" }
+dev     = { features = ["dev"], solve-group = "default" }
+
+[tasks]
+# Format
+install-pre-commit = "pre-commit install"
+format = { cmd = "mojo format tempo tests examples benchmark", depends-on = ["install-pre-commit"] }
+
+# Tests
+tests          = "mojo -I . tests/test_timestamp.mojo && mojo -I . tests/test_duration.mojo"
+test-timestamp = "mojo -I . tests/test_timestamp.mojo"
+test-duration  = "mojo -I . tests/test_duration.mojo"
+
+# Examples
+example = "mojo -I . examples/example.mojo"
+
+# Benchmark
+bench = "mojo -I . benchmark/bench.mojo"
+
+# Docs
+docs       = "mojodoc ./tempo --open"
+docs-build = "mojodoc ./tempo --out-dir target/doc --base-url /tempo/"
