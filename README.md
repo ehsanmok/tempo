@@ -10,27 +10,6 @@ Minimal UTC timestamp and duration types for Mojo.
 uses Howard Hinnant's public-domain Gregorian algorithm in pure Mojo. `Duration`
 stores a signed second count with a compact human-readable format (`"1d2h30m0s"`).
 
-## Installation
-
-Add tempo to your project's `pixi.toml`:
-
-```toml
-[workspace]
-channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
-preview = ["pixi-build"]
-
-[dependencies]
-tempo = { git = "https://github.com/ehsanmok/tempo.git", branch = "main" }
-```
-
-Then run:
-
-```bash
-pixi install
-```
-
-Requires [pixi](https://pixi.sh) (pulls Mojo nightly automatically).
-
 ## Quick Start
 
 ```mojo
@@ -55,6 +34,27 @@ var d = Duration.from_hours(1) + Duration.from_minutes(30)
 print(d)          # "1h30m0s"
 print(d.secs())   # 5400
 ```
+
+## Installation
+
+Add tempo to your project's `pixi.toml`:
+
+```toml
+[workspace]
+channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
+preview = ["pixi-build"]
+
+[dependencies]
+tempo = { git = "https://github.com/ehsanmok/tempo.git", branch = "main" }
+```
+
+Then run:
+
+```bash
+pixi install
+```
+
+Requires [pixi](https://pixi.sh) (pulls Mojo nightly automatically).
 
 ## Timestamp vs Duration: When to Use Which
 
@@ -111,6 +111,8 @@ Benchmarks on Apple M-series (run `pixi run bench` to reproduce):
 | `Timestamp.add(d)`          | < 1 ns       |
 | `Timestamp.since(t)`        | < 1 ns       |
 
+Full API reference: [ehsanmok.github.io/tempo](https://ehsanmok.github.io/tempo)
+
 ## Development
 
 ```bash
@@ -123,8 +125,6 @@ pixi run example         # run examples/example.mojo
 
 pixi run -e dev docs     # build + serve API docs locally
 ```
-
-Full API reference: [ehsanmok.github.io/tempo](https://ehsanmok.github.io/tempo)
 
 ## License
 
