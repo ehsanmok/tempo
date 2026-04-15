@@ -2,10 +2,10 @@
 
 `tempo` provides two composable types:
 
-- `Timestamp` -- a UTC wall-clock instant with microsecond resolution.
+- `Timestamp`: a UTC wall-clock instant with microsecond resolution.
   Backed by a single `gettimeofday(2)` FFI call; all calendar arithmetic
   is pure Mojo integer math.
-- `Duration` -- a signed span of time stored as whole seconds.  Supports
+- `Duration`: a signed span of time stored as whole seconds.  Supports
   all standard arithmetic operators and a compact human-readable format
   (`"1d2h30m0s"`).
 
