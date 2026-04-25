@@ -45,7 +45,7 @@ channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
 preview = ["pixi-build"]
 
 [dependencies]
-tempo = { git = "https://github.com/ehsanmok/tempo.git", tag = "v0.1.0" }
+tempo = { git = "https://github.com/ehsanmok/tempo.git", tag = "v0.1.1" }
 ```
 
 Then run:
