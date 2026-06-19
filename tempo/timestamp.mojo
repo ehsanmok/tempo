@@ -329,7 +329,7 @@ struct Timestamp(Copyable, Movable, Writable, Hashable):
             var t = Timestamp.parse_iso8601("2026-04-06T14:30:00Z")
             print(t.unix_secs())  # 1775471400
         """
-        var n = len(s)
+        var n = s.byte_length()
         if n < 19:
             raise Error("tempo: ISO 8601 string too short: " + s)
 
