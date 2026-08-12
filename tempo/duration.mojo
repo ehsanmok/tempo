@@ -379,4 +379,4 @@ struct Duration(Copyable, Movable, Writable):
 
             print(Duration.from_hours(2) + Duration.from_minutes(30))  # "2h30m0s"
         """
-        return String.write(self)
+        return String(self)
