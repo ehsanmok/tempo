@@ -20,7 +20,7 @@ Example:
 """
 
 
-struct Duration(Copyable, Movable, Writable):
+struct Duration(Copyable, Writable):
     """A signed duration stored as a whole number of seconds.
 
     Use the `from_*` class methods to construct a `Duration` with an explicit

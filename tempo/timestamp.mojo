@@ -52,7 +52,7 @@ def _get_time() -> Tuple[Int64, Int32]:
         A tuple `(tv_sec, tv_usec)` representing the current UTC time.
     """
     var tv = _Timeval()
-    _ = external_call["gettimeofday", Int32](UnsafePointer(to=tv), Int64(0))
+    _ = external_call["gettimeofday", Int32](Pointer(to=tv), Int64(0))
     return (tv.tv_sec, Int32(tv.tv_usec))
 
 
@@ -216,7 +216,7 @@ def _parse_int(s: String, start: Int, end: Int) raises -> Int64:
 # ---------------------------------------------------------------------------
 
 
-struct Timestamp(Copyable, Movable, Writable, Hashable):
+struct Timestamp(Copyable, Hashable, Writable):
     """A UTC timestamp with microsecond resolution.
 
     Internally stores (Unix seconds, microseconds) as `(Int64, Int32)`.
@@ -333,12 +333,12 @@ struct Timestamp(Copyable, Movable, Writable, Hashable):
         if n < 19:
             raise Error("tempo: ISO 8601 string too short: " + s)
 
-        var year  = _parse_int(s, 0, 4)
+        var year = _parse_int(s, 0, 4)
         var month = _parse_int(s, 5, 7)
-        var day   = _parse_int(s, 8, 10)
-        var hour  = _parse_int(s, 11, 13)
+        var day = _parse_int(s, 8, 10)
+        var hour = _parse_int(s, 11, 13)
         var minute = _parse_int(s, 14, 16)
-        var sec   = _parse_int(s, 17, 19)
+        var sec = _parse_int(s, 17, 19)
 
         # Validate ranges.
         if month < 1 or month > 12:
@@ -498,7 +498,19 @@ struct Timestamp(Copyable, Movable, Writable, Hashable):
         var mi = rem // 60
         var s = rem % 60
 
-        var base = _pad4(yy) + "-" + _pad2(mm) + "-" + _pad2(dd) + "T" + _pad2(h) + ":" + _pad2(mi) + ":" + _pad2(s)
+        var base = (
+            _pad4(yy)
+            + "-"
+            + _pad2(mm)
+            + "-"
+            + _pad2(dd)
+            + "T"
+            + _pad2(h)
+            + ":"
+            + _pad2(mi)
+            + ":"
+            + _pad2(s)
+        )
         if self._usecs != 0:
             return base + "." + _pad6(Int64(self._usecs)) + "Z"
         return base + "Z"

@@ -40,10 +40,10 @@ def main() raises:
     section("Constructors")
 
     var epoch = Timestamp.from_unix_secs(0)
-    print("Unix epoch:      ", epoch)         # 1970-01-01T00:00:00Z
+    print("Unix epoch:      ", epoch)  # 1970-01-01T00:00:00Z
 
     var from_ms = Timestamp.from_unix_ms(1_500_000_000_000)
-    print("From unix ms:    ", from_ms)       # 2017-07-14T02:40:00Z
+    print("From unix ms:    ", from_ms)  # 2017-07-14T02:40:00Z
 
     # =========================================================================
     # ISO 8601 parsing
@@ -57,12 +57,12 @@ def main() raises:
     # With fractional seconds.
     var frac = Timestamp.parse_iso8601("2026-04-06T14:30:00.500000Z")
     print("Fractional:      ", frac)
-    print("Microseconds:    ", frac.usecs())         # 500000
+    print("Microseconds:    ", frac.usecs())  # 500000
 
     # Round-trip check.
     var iso = "2025-06-15T10:45:30Z"
-    var t   = Timestamp.parse_iso8601(iso)
-    print("Round-trip OK:   ", String(t) == iso)    # True
+    var t = Timestamp.parse_iso8601(iso)
+    print("Round-trip OK:   ", String(t) == iso)  # True
 
     # Parsing an invalid string raises.
     print("Parsing invalid string...")
@@ -76,43 +76,47 @@ def main() raises:
     # =========================================================================
     section("Duration construction")
 
-    var d_secs    = Duration.from_secs(90)
+    var d_secs = Duration.from_secs(90)
     var d_minutes = Duration.from_minutes(5)
-    var d_hours   = Duration.from_hours(2)
-    var d_days    = Duration.from_days(3)
+    var d_hours = Duration.from_hours(2)
+    var d_days = Duration.from_days(3)
 
-    print("90 seconds:      ", d_secs)      # "1m30s"
-    print("5 minutes:       ", d_minutes)   # "5m0s"
-    print("2 hours:         ", d_hours)     # "2h0m0s"
-    print("3 days:          ", d_days)      # "3d0h0m0s"
+    print("90 seconds:      ", d_secs)  # "1m30s"
+    print("5 minutes:       ", d_minutes)  # "5m0s"
+    print("2 hours:         ", d_hours)  # "2h0m0s"
+    print("3 days:          ", d_days)  # "3d0h0m0s"
 
     # =========================================================================
     # Duration arithmetic
     # =========================================================================
     section("Duration arithmetic")
 
-    var combined = Duration.from_hours(1) + Duration.from_minutes(30) + Duration.from_secs(45)
-    print("1h30m45s:        ", combined)     # "1h30m45s"
+    var combined = (
+        Duration.from_hours(1)
+        + Duration.from_minutes(30)
+        + Duration.from_secs(45)
+    )
+    print("1h30m45s:        ", combined)  # "1h30m45s"
     print("total seconds:   ", combined.secs())
 
     var diff = Duration.from_days(1) - Duration.from_hours(6)
-    print("1d - 6h:         ", diff)         # "18h0m0s"
+    print("1d - 6h:         ", diff)  # "18h0m0s"
 
     var neg = -Duration.from_hours(2)
-    print("Negative:        ", neg)          # "-2h0m0s"
-    print("Absolute:        ", neg.abs())    # "2h0m0s"
+    print("Negative:        ", neg)  # "-2h0m0s"
+    print("Absolute:        ", neg.abs())  # "2h0m0s"
 
     # =========================================================================
     # Timestamp arithmetic
     # =========================================================================
     section("Timestamp arithmetic")
 
-    var start   = Timestamp.parse_iso8601("2026-01-01T00:00:00Z")
+    var start = Timestamp.parse_iso8601("2026-01-01T00:00:00Z")
     var shifted = start.add(Duration.from_days(30))
-    print("30 days later:   ", shifted)      # 2026-01-31T00:00:00Z
+    print("30 days later:   ", shifted)  # 2026-01-31T00:00:00Z
 
     var elapsed = shifted.since(start)
-    print("Elapsed:         ", elapsed)      # "30d0h0m0s"
+    print("Elapsed:         ", elapsed)  # "30d0h0m0s"
     print("Elapsed days:    ", elapsed.days())  # 30
 
     # =========================================================================
@@ -122,10 +126,10 @@ def main() raises:
 
     var a = Timestamp.from_unix_secs(1000)
     var b = Timestamp.from_unix_secs(2000)
-    print("a < b:           ", a < b)    # True
-    print("a > b:           ", a > b)    # False
-    print("a == a:          ", a == a)   # True
-    print("a != b:          ", a != b)   # True
+    print("a < b:           ", a < b)  # True
+    print("a > b:           ", a > b)  # False
+    print("a == a:          ", a == a)  # True
+    print("a != b:          ", a != b)  # True
 
     # =========================================================================
     # Hashing (for use in Dict / Set)
